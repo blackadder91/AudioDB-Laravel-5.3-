@@ -1,0 +1,229 @@
+$pal-white: #fff
+$pal-grey: #636b6f
+$pal-grey2: #dee0df
+
+$pal1: #92a8d1
+$pal2: #f7cac9
+$pal3: #f7786b
+$pal4: #034f84
+
+//$primary-font: 'Raleway', sans-serif
+$primary-font: "Source Sans Pro", sans-serif
+$primary-color: #636b6f
+
+$container-width: 1080px
+$container-sp-lr: 20px
+$container-sp-tb: 20px
+
+*, div
+    box-sizing: border-box
+
+body
+    font-family: $primary-font
+    color: $primary-color
+    font-size: 15px
+    letter-spacing: .1rem
+    //height: 100vh
+
+p, ul, h1, h2 ,h3, h4, h5
+    margin: 0
+    padding: 0
+
+ul
+    list-style-type: none
+
+a, a:hover, a:visited
+    text-decoration: none
+    color: $primary-color
+
+h1,h2,h3,h4,h5
+    color: $pal4
+
+h1
+    font-size: 1.75em
+
+h2
+    font-size: 1.25em
+
+h3
+    font-size: 1em
+
+.clearfix
+    clear: both
+
+#page
+    background: $pal1
+    background: -webkit-linear-gradient(45deg, $pal1, $pal4)
+    background: -o-linear-gradient(45deg, $pal1, $pal4)
+    background: -moz-linear-gradient(45deg, $pal1, $pal4)
+    background: linear-gradient(45deg, $pal1, $pal4)
+
+#side-panel
+    display: none
+
+
+/* ****************************************************************************/
+/* HEADER */
+/******************************************************************************/
+$page-header-hg: 80px
+#page-header
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    z-index: 100
+    background-color: white
+    height: $page-header-hg
+    border-bottom: 1px solid $pal-grey2
+    padding: 0px 20px
+
+    .page-header-inner
+        display: flex
+
+    .site-title
+        display: flex
+        float: left
+        font-size: 24px
+        font-style: italic
+        line-height: $page-header-hg
+        padding: 0px 25px
+        margin-left: -20px
+        border-right: 1px solid $pal-grey2
+
+.page-nav
+    float: left
+    display: flex
+    border-right: 1px solid $pal-grey2
+
+    ul
+        display: flex
+        -webkit-box-align: center
+        align-items: center
+
+    li
+        margin: 0 15px
+
+    a
+        font-size: 18px
+        padding: 10px
+
+.search-bar
+    position: relative
+    height: $page-header-hg
+    width: 100%
+    svg
+        position: absolute
+        top: 50%
+        transform: translateY(-50%)
+        left: 32px
+
+    form, input[type="text"]
+        background-color: transparent
+        letter-spacing: 0.3em
+        height: 100%
+        padding: 0
+        margin: 0
+        padding-left: 32px
+        border: none
+        outline: none
+        &:focus
+            border: none
+            outline: none
+
+        input[type="text"]
+            width: 100%
+
+
+/* ****************************************************************************/
+/* FOOTER */
+/******************************************************************************/
+#page-footer
+    background-color: white
+    border-top: 1px solid $pal-grey2
+    height: 60px
+    text-align: center
+    position: relative
+    z-index: 90
+
+    p
+        line-height: 60px
+
+.page-bg
+    position: fixed
+    top: $page-header-hg
+    left: 0
+    right: 0
+    height: 100vh
+    background-image: url(../images/bg.jpg)
+    background-position: center center
+    background-size: cover
+    z-index: 1
+
+
+/* ****************************************************************************/
+/* PAGE CONTAINER */
+/******************************************************************************/
+#page-main
+    margin-top: $page-header-hg
+    background-color: white
+    display: flex
+    z-index: 90
+    position: relative
+
+.page-container
+    max-width: $container-width
+    width: 100%
+    margin: 0 auto
+    padding: 0px $container-sp-lr 0px $container-sp-lr
+
+    a:hover
+        text-decoration: underline
+
+    .main-section,
+    .sidebar-section
+        box-sizing: border-box
+
+    .sidebar-section
+        width: 300px
+        padding: $container-sp-tb + 30px $container-sp-lr 30px 0px
+        border-right: 1px solid #f0f2f1
+
+        h1
+            text-align: center
+
+        a
+            color: $pal4
+            font-weight: 600
+
+        >ul>li
+            padding: 0 0 10px
+            margin: 1em 0 0
+
+        >ul>li>ul
+            margin: .5em 0 0
+            padding: .5em 0 0
+            border-top: 1px dashed rgba(0,0,0,.1)
+
+        >ul>li>ul>li
+            margin: 0 0 .5em
+
+    .main-section
+        padding: 30px 0px $container-sp-lr 30px
+        // margin-left: 300px
+        width: calc(100% - 300px)
+
+        p
+            margin: 1em 0
+            font-size: 15px
+            line-height: 22px
+            letter-spacing: .05em
+
+        section
+            margin: 1em 0
+
+        .content
+            ul
+                list-style-type: square
+            ul, ol
+                padding-left: 1em
+                margin-left: 1em

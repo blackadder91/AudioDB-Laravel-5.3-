@@ -1,0 +1,68 @@
+/* ****************************************************************************/
+/* General table styles */
+/******************************************************************************/
+table
+    width: 100%
+    text-align: left
+    border-collapse: collapse
+    border: 1px solid $pal4
+    font-size: 13px
+    letter-spacing: 0.075rem
+
+    thead
+        tr
+            background-color: $pal4
+            color: white
+            border-bottom: 1px solid $pal4
+        th
+            font-weight: bold
+
+        th.year
+            width: 40px
+        th.label
+            width: 140px
+
+    td, th
+        padding: 6px
+    tr
+        border-bottom: 1px solid $pal1
+    tr:last-child
+        border-bottom: none
+
+    tbody
+        tr:hover
+            color: white
+            background-color: $pal1
+
+
+.entity-table
+    nav
+        border: 1px solid $pal4
+        display: flex
+        border-bottom: none
+        justify-content: space-around
+        text-align: center
+
+        a
+            line-height: 28px
+            display: inline-block
+            font-size: 13px
+            padding: 0px 10px
+            width: 100%
+
+            &.active
+                background-color: $pal1
+                color: white
+
+            &:not(:last-child)
+                border-right: 1px solid $pal4
+
+
+/* ****************************************************************************/
+/* Single entity  featured image styles */
+/******************************************************************************/
+.entity-featured
+    width: 100%
+    height: 300px
+    background-size: cover
+    margin-bottom: $container-sp-tb
