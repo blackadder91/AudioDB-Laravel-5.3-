@@ -40,9 +40,8 @@ class Artist extends Model
 
         if ($slug == '')
             $image = $image->inRandomOrder();
-        else {
+        else
             $image = $image->where('images.slug', '=', $slug);
-        }
 
         return $image->first();
     }
