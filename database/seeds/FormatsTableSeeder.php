@@ -14,8 +14,7 @@ class FormatsTableSeeder extends Seeder
     {
         $titles = [['Audio Disc','CD'], ['Super Audio Disc','SACD'], ['Vinyl','LP'], ['Digital Download','Digital']];
 
-        foreach($titles as $t)
-        {
+        foreach ($titles as $t) {
             $m = new Format();
             $m->title = $t[0];
             $m->title_short = $t[1];

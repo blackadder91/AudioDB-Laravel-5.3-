@@ -32,25 +32,24 @@ class Genre extends Model
         $a = [];
         $pId = 0;
 
-        if($m == null) {
+        if ($m == null) {
             $m = $this;
             $pId = $this->id;
             array_push($a, $pId);
 
 
-            if($m->children->count() > 0) {
+            if ($m->children->count() > 0) {
                 $a[$pId] = [];
                 $aa = $this->to_array($m->children);
                 $a[$pId] = $aa;
             }
-        }
-        else {
-            foreach($m as $mm) {
+        } else {
+            foreach ($m as $mm) {
                 $pId = $mm->id;
                 array_push($a, $pId);
 
 
-                if($mm->children->count() > 0) {
+                if ($mm->children->count() > 0) {
                     $a[$pId] = [];
                     $aa = $this->to_array($mm->children);
                     $a[$pId] = $aa;

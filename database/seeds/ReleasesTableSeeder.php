@@ -37,8 +37,7 @@ class ReleasesTableSeeder extends Seeder
             ],
         ];
 
-        foreach($data as $d)
-        {
+        foreach ($data as $d) {
             Release::create($d);
         }
     }

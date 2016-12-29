@@ -30,8 +30,7 @@ class ArtistsTableSeeder extends Seeder
             ]
         ];
 
-        foreach($artists as $a)
-        {
+        foreach ($artists as $a) {
             Artist::create([
                 'title' => $a[0],
                 'slug' => str_slug($a[0], '-'),

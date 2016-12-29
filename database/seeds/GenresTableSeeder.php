@@ -10,10 +10,9 @@ class GenresTableSeeder extends Seeder
     {
         $keys = array_keys($data);
         $idx = $parentId;
-        foreach($keys as $k)
-        {
+        foreach ($keys as $k) {
             $idx++;
-            if(is_array($data[$k])) {
+            if (is_array($data[$k])) {
                 $m = new Genre();
                 $m->title = $k;
                 $m->slug = str_slug($k, '-');
@@ -21,9 +20,7 @@ class GenresTableSeeder extends Seeder
                 $m->save();
 
                 $idx = $this->insert($data[$k], $idx);
-            }
-            else
-            {
+            } else {
                 $m = new Genre();
                 $m->title = $data[$k];
                 $m->slug = str_slug($data[$k], '-');
@@ -31,6 +28,7 @@ class GenresTableSeeder extends Seeder
                 $m->save();
             }
         }
+
         return $idx;
     }
 

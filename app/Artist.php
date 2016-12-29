@@ -38,7 +38,7 @@ class Artist extends Model
             ->where('image_types.code', $imageType)
             ->where('images.imageable_type', 'App\Artist');
 
-        if($slug == '')
+        if ($slug == '')
             $image = $image->inRandomOrder();
         else {
             $image = $image->where('images.slug', '=', $slug);

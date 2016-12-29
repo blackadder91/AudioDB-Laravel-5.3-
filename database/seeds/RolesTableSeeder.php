@@ -14,8 +14,7 @@ class RolesTableSeeder extends Seeder
     {
         $titles = [['user', 0], ['admin', 3], ['editor', 1], ['sysadmin', 2],['anonymous', 0]];
 
-        foreach($titles as $t)
-        {
+        foreach ($titles as $t) {
             Role::create([
                'title' => $t[0],
                 'parent_id' => $t[1]

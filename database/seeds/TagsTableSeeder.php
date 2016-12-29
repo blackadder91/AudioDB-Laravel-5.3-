@@ -16,8 +16,7 @@ class TagsTableSeeder extends Seeder
             'upbeat', 'epic', 'introspection', 'loss/grief', 'nihilistic', 'angst', 'cynical/sarcastic',
             'aggresive', 'theatrical'];
 
-        foreach($titles as $t)
-        {
+        foreach ($titles as $t) {
             Tag::create([
                'title' => $t,
                 'slug' => str_slug($t, '-'),

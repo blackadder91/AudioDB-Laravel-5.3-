@@ -24,8 +24,7 @@ class ImageTypesTableSeeder extends Seeder
             [null, 'misc']
         ];
 
-        foreach($titles as $t)
-        {
+        foreach ($titles as $t) {
             $m = new ImageType();
             $m->title = $t[0];
             $m->code = $t[1];

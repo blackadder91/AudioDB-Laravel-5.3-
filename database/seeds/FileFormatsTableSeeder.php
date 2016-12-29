@@ -14,8 +14,7 @@ class FileFormatsTableSeeder extends Seeder
     {
         $titles = ['FLAC', 'APE', 'WV'];
 
-        foreach($titles as $t)
-        {
+        foreach ($titles as $t) {
             $m = new FileFormat();
             $m->title = $t;
             $m->slug = str_slug($t, '-');

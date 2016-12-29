@@ -14,8 +14,7 @@ class CountriesTableSeeder extends Seeder
     {
         $titles = [['United States', 'US'], ['Europe', 'EU'], ['United Kingdom', 'UK'], ['Italy', 'Italy'],['Germany', 'DEU'],['Austria', 'Austria'],['Japan', 'JP'],['Canada', 'Canada'],['', ''],['Argentina', 'Argentina'],];
 
-        foreach($titles as $t)
-        {
+        foreach ($titles as $t) {
             $m = new Country();
             $m->title = $t[0];
             $m->title_short = $t[1];

@@ -14,8 +14,7 @@ class LabelsTableSeeder extends Seeder
     {
         $titles = [['Elektra Records', 'Elektra'], ['Legacy Records', 'Legacy'], ['EMI', 'EMI']];
 
-        foreach($titles as $t)
-        {
+        foreach ($titles as $t) {
             $m = new Label();
             $m->title = $t[0];
             $m->title_short = $t[1];

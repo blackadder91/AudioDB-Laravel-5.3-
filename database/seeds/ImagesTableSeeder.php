@@ -75,8 +75,8 @@ class ImagesTableSeeder extends Seeder
             ],
 
         ];
-        foreach($data as $d)
-        {
+        
+        foreach ($data as $d) {
             Image::create($d);
         }
     }

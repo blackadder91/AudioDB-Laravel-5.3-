@@ -14,7 +14,7 @@ class AlbumTypesTableSeeder extends Seeder
     {
         $titles = ['Studio album', 'Compilation', 'Live'];
 
-        foreach($titles as $t)
+        foreach ($titles as $t)
         {
             $m = new AlbumType();
             $m->title = $t;
