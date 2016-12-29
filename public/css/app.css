@@ -433,9 +433,13 @@ h3 {
   margin: 0 0 .5em;
 }
 
+.page-container .sidebar-section + .main-section {
+  width: calc(100% - 300px);
+}
+
 .page-container .main-section {
   padding: 30px 0px 20px 30px;
-  width: calc(100% - 300px);
+  width: 100%;
 }
 
 .page-container .main-section p {
