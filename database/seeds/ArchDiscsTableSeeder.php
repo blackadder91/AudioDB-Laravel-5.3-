@@ -14,8 +14,7 @@ class ArchDiscsTableSeeder extends Seeder
     {
         $titles = ['LOSSLESS_001', 'LOSSLESS_002'];
 
-        foreach ($titles as $t)
-        {
+        foreach ($titles as $t) {
             $m = new ArchDisc();
             $m->title = $t;
             $m->slug = str_slug($t, '-');
