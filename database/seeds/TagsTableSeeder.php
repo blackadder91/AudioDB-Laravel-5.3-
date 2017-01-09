@@ -14,7 +14,7 @@ class TagsTableSeeder extends Seeder
     {
         $titles = ['gloomy', '60s', '70s', '80s', '90s', 'existential', 'melancholic', 'sad', 'romance',
             'upbeat', 'epic', 'introspection', 'loss/grief', 'nihilistic', 'angst', 'cynical/sarcastic',
-            'aggresive', 'theatrical'];
+            'aggresive', 'theatrical', 'experimental'];
 
         foreach ($titles as $t) {
             Tag::create([

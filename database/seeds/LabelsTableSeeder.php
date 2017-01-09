@@ -12,7 +12,7 @@ class LabelsTableSeeder extends Seeder
      */
     public function run()
     {
-        $titles = [['Elektra Records', 'Elektra'], ['Legacy Records', 'Legacy'], ['EMI', 'EMI']];
+        $titles = [['Elektra Records', 'Elektra'], ['Legacy Records', 'Legacy'], ['EMI', 'EMI'], ['Harvest', 'Harvest'], ['RCA Records', 'RCA']];
 
         foreach ($titles as $t) {
             $m = new Label();

@@ -50,5 +50,32 @@ class RecordingsTableSeeder extends Seeder
             ]
         );
         $m->tags()->sync([6, 3, 7, 8, 11, 16, 18]);
+
+        $m = Recording::create(
+            [
+                'title' => 'Wish You Were Here',
+                'slug' => str_slug('Pink Floyd - Wish You Were Here', '-'),
+                'artist_id' => 1,
+                'release_date' => date("1975-09-12"),
+                'label_id' => 2,
+                'album_type_id' => 1,
+                'genre_id' => 14
+            ]
+        );
+        $m->tags()->sync([6, 3, 7, 8, 11, 16, 18]);
+
+        $m = Recording::create(
+            [
+                'title' => 'Low',
+                'slug' => str_slug('David Bowie - Low', '-'),
+                'artist_id' => 4,
+                'release_date' => date("1977-01-14"),
+                'label_id' => 5,
+                'album_type_id' => 1,
+                'genre_id' => 12
+            ]
+        );
+        $m->tags()->sync([7, 19]);
+
     }
 }
