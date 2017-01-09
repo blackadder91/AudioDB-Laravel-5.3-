@@ -42,6 +42,30 @@ class ImagesTableSeeder extends Seeder
                 'imageable_type' => 'App\Artist',
             ],
             [
+                'title' => 'David Bowie',
+                'slug' => str_slug('David Bowie'),
+                'filename' => 'david-bowie.jpg',
+                'image_type_id' => $artist_main,
+                'imageable_id' => 4,
+                'imageable_type' => 'App\Artist',
+            ],
+            [
+                'title' => 'Brian Eno',
+                'slug' => str_slug('Brian Eno'),
+                'filename' => 'brian-eno.jpg',
+                'image_type_id' => $artist_main,
+                'imageable_id' => 5,
+                'imageable_type' => 'App\Artist',
+            ],
+            [
+                'title' => 'Genesis',
+                'slug' => str_slug('Genesis'),
+                'filename' => 'genesis.jpg',
+                'image_type_id' => $artist_main,
+                'imageable_id' => 6,
+                'imageable_type' => 'App\Artist',
+            ],
+            [
                 'title' => 'Master Of Puppets',
                 'slug' => str_slug('Master Of Puppets'),
                 'filename' => 'master-of-puppets.png',
@@ -75,7 +99,7 @@ class ImagesTableSeeder extends Seeder
             ],
 
         ];
-        
+
         foreach ($data as $d) {
             Image::create($d);
         }
