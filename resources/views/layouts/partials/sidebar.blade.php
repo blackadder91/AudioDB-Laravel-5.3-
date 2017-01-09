@@ -1,4 +1,4 @@
-<h1>Page title</h1>
+<h1>@yield('title')</h1>
 <ul>
     <li id="widget_entity_actions">Actions
         <ul>

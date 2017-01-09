@@ -14,3 +14,5 @@
 Auth::routes();
 
 Route::get('/', 'IndexController@index');
+
+Route::resource('artists', 'ArtistController');
