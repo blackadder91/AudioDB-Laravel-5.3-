@@ -9,5 +9,6 @@ function setMinPageHeight()
 
 $(document).ready(function(){
     $('select').select2();
+    $('.entities.grid-view .item').matchHeight();
     setMinPageHeight();
 })

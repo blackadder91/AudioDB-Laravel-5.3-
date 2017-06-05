@@ -29,9 +29,8 @@ class StoreReleaseRequest extends FormRequest
             'format' => 'required',
             'country' => 'required',
             'slug' => 'required',
-            'year' => 'required|numeric',
+            'year' => 'numeric',
             'catalog_no' => 'required',
-            'isbn' => 'required',
         ];
     }
 }

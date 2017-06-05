@@ -5,6 +5,7 @@
         <meta name="_token" content="{!! csrf_token() !!}" />
         {{-- Scripts --}}
         <script src="/js/select2.min.js"></script>
+        <script src="/js/jQuery.matchHeight.min.js"></script>
         <script src="/js/app.js"></script>
         <script src="/framework/general.js"></script>
         <script src="/framework/entity.js"></script>

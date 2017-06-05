@@ -94,10 +94,10 @@ class ReleaseController extends Controller
     {
         extract($request->all());
         $catalog_no = trim($catalog_no);
-        $isbn = trim($isbn);
-        $year = trim($year);
+        $isbn = trim($isbn) != '' ? trim($isbn) : null;
+        $year = trim($year) != '' ? trim($year) : null;
 
-        if (Release::where('catalog_no', $catalog_no)->get()->count() > 0 )
+        if (Release::where('slug', $slug)->get()->count() > 0 )
             return redirect()
                 ->back()
                 ->withErrors(array('Release already exists'))
@@ -124,6 +124,16 @@ class ReleaseController extends Controller
                     ->back()
                     ->withErrors(array('Failed to upload image'))
                     ->withInput();
+        }
+
+        if ($arch_disc != 0) {
+            $archive = new Archive();
+            $archive->release_id = $entity->id;
+            $archive->arch_disc_id = $arch_disc;
+            $archive->file_format_id = 1;
+            $archive->flags = 0;
+            $archive->notes = $notes;
+            $archive->save();
         }
 
         return redirect()->action('ReleaseController@index');
@@ -175,8 +185,8 @@ class ReleaseController extends Controller
     {
         extract($request->all());
         $catalog_no = trim($catalog_no);
-        $isbn = trim($isbn);
-        $year = trim($year);
+        $isbn = trim($isbn) != '' ? trim($isbn) : null;
+        $year = trim($year) != '' ? trim($year) : null;
 
         $entity = Release::find($id);
         $entity->catalog_no = $catalog_no;

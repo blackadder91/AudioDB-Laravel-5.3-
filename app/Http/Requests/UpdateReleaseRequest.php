@@ -27,9 +27,8 @@ class UpdateReleaseRequest extends FormRequest
             'label' => 'required',
             'format' => 'required',
             'country' => 'required',
-            'year' => 'required|numeric',
+            'year' => 'numeric',
             'catalog_no' => 'required',
-            'isbn' => 'required',
         ];
     }
 }

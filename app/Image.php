@@ -43,26 +43,7 @@ class Image extends Model
 
             // Save
             $file->move($fileDirectory, $this->filename);
-
-            // Generate thumbnails
             $this->generateThumbnails();
-            // $imageManager = new ImageManager;
-            // $fileSubdirectory .=  '/thumbnails';
-            // if (!file_exists($fileSubdirectory))
-            //     mkdir($fileSubdirectory);
-            //
-            // foreach($this->imageSizes as $type => $dim)
-            // {
-            //     $thumbDir = $fileSubdirectory . "/{$type}";
-            //     if (!file_exists($thumbDir))
-            //         mkdir($thumbDir);
-            //
-            //     $imageManager->make($fileDirectory . '\\' . $this->filename)
-            //         ->resize($dim, $dim, function($constraint) {
-            //             $constraint->aspectRatio();
-            //         })
-            //         ->save($thumbDir . '/' . $this->filename);
-            // }
         }
     }
 
@@ -94,7 +75,7 @@ class Image extends Model
             $this->entitySlug = $entitySlug;
 
         $fileDirectory = $this->_getFileDirectory();
-        $fileSubdirectory = $this->_getFileDirectory(); //$this->_getFileSubdirectory();
+        $fileSubdirectory = $this->_getFileDirectory();
         $imageManager = new ImageManager;
         $fileSubdirectory .=  '/thumbnails';
         if (!file_exists($fileSubdirectory))
@@ -114,27 +95,6 @@ class Image extends Model
         }
 
         return $thumbDir . '/' . $this->filename;
-
-        // $fileDirectory = $this->_getFileDirectory();
-        // $fileSubdirectory = $this->_getFileDirectory();
-        // $imageManager = new ImageManager;
-        // $fileSubdirectory .=  '/thumbnails';
-        // echo 'x: ' . $fileDirectory . '\\' . $this->filename . '|';
-        // if (!file_exists($fileSubdirectory))
-        //     mkdir($fileSubdirectory);
-        //
-        // foreach($this->imageSizes as $type => $dim)
-        // {
-        //     $thumbDir = $fileSubdirectory . "/{$type}";
-        //     if (!file_exists($thumbDir))
-        //         mkdir($thumbDir);
-        //
-        //     $imageManager->make($fileDirectory . '\\' . $this->filename)
-        //         ->resize($dim, $dim, function($constraint) {
-        //             $constraint->aspectRatio();
-        //         })
-        //         ->save($thumbDir . '/' . $this->filename);
-        // }
     }
 
 }

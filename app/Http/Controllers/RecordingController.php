@@ -87,7 +87,7 @@ class RecordingController extends Controller
     {
         extract($request->all());
         $title = trim($title);
-
+        $slug = str_slug($slug);
         if (Recording::where('title', $title)->where('artist_id', $artist)->get()->count() >0 )
             return redirect()
                 ->back()
