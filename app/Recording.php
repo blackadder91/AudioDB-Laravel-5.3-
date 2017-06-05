@@ -35,4 +35,35 @@ class Recording extends Model
     {
         return $this->morphMany('App\Image', 'imageable');
     }
+
+    public function getMainImageUrl($size = 'full')
+    {
+        $thumbPath = $size == 'full' ? '' : 'thumbnails/' . $size . '/';
+        return url('/') . '/images/media/recordings/' . $this->slug . '/' . $thumbPath . $this->getImage('recording_main')->filename;
+    }
+
+    public function getImage($imageType, $slug = '')
+    {
+        $image = $this->images()
+            ->join('image_types', 'images.image_type_id', '=', 'image_types.id')
+            ->where('image_types.code', $imageType)
+            ->where('images.imageable_type', get_class());
+
+        if ($slug == '')
+            $image = $image->inRandomOrder();
+        else
+            $image = $image->where('images.slug', '=', $slug);
+
+        return $image->first();
+    }
+
+    public function getImages($imageType)
+    {
+        return $this->images()
+            ->join('image_types', 'images.image_type_id', '=', 'image_types.id')
+            ->where('image_types.code', $imageType)
+            ->where('images.imageable_type', get_class())
+            ->get();
+    }
+
 }

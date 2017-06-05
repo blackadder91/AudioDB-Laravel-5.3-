@@ -23,6 +23,6 @@
         <p class="note">No data</p>
     @endif
 @endsection
-
-@push('scripts')
+@push('actions')
+@include('partials.actions.index', array('entity_type' => 'artists'))
 @endpush

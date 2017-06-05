@@ -25,4 +25,11 @@ class IndexController extends Controller
     {
         return view('index');
     }
+
+    public function search($term)
+    {
+        $results = array();
+        return view('search')
+            ->withResults($results);
+    }
 }

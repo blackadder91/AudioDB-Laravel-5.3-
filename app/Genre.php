@@ -27,6 +27,19 @@ class Genre extends Model
     }
 
     /* convert current genre branch to array */
+    public static function to_array_all()
+    {
+        $a = [];
+        $gs = Genre::where('parent_id', '=', 0)
+            ->orderBy('title', 'ASC')
+            ->get();
+
+        foreach($gs as $g) {
+            $a[] = $g->to_array();
+        }
+
+        return $a;
+    }
     public function to_array($m = null)
     {
         $a = [];
@@ -36,7 +49,6 @@ class Genre extends Model
             $m = $this;
             $pId = $this->id;
             array_push($a, $pId);
-
 
             if ($m->children->count() > 0) {
                 $a[$pId] = [];
@@ -57,5 +69,11 @@ class Genre extends Model
             }
         }
         return $a;
+    }
+
+    public static function to_html_all()
+    {
+        $a = self::to_array_all();
+
     }
 }

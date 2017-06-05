@@ -40,4 +40,55 @@ class Release extends Model
     {
         return $this->morphMany('App\Image', 'imageable');
     }
+
+    // indirect relationships
+    public function artist()
+    {
+        return $this->recording->artist();
+    }
+
+    public function genre()
+    {
+        return $this->recording->genre();
+    }
+
+    public function albumType()
+    {
+        return $this->recording->albumType();
+    }
+
+    public function getMainImageUrl($size = 'full')
+    {
+        if ($this->getImage('recording_main') != null ) {
+            $thumbPath = $size == 'full' ? '' : 'thumbnails/' . $size . '/';
+            $imageUri = url('/') . '/images/media/releases/' . $this->slug . '/' . $thumbPath;
+            return $imageUri . $this->getImage('recording_main')->filename;
+        } else {
+            return $this->recording->getMainImageUrl($size);
+        }
+    }
+
+    public function getImage($imageType, $slug = '')
+    {
+        $image = $this->images()
+            ->join('image_types', 'images.image_type_id', '=', 'image_types.id')
+            ->where('image_types.code', $imageType)
+            ->where('images.imageable_type', get_class());
+
+        if ($slug == '')
+            $image = $image->inRandomOrder();
+        else
+            $image = $image->where('images.slug', '=', $slug);
+
+        return $image->first();
+    }
+
+    public function getImages($imageType)
+    {
+        return $this->images()
+            ->join('image_types', 'images.image_type_id', '=', 'image_types.id')
+            ->where('image_types.code', $imageType)
+            ->where('images.imageable_type', get_class())
+            ->get();
+    }
 }

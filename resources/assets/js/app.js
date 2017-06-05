@@ -1,5 +1,5 @@
-import Vue from 'vue'
+//import Vue from 'vue'
 
-var app = new Vue({
-    el: '#page'
-});
+// var app = new Vue({
+//     el: '#page'
+// });

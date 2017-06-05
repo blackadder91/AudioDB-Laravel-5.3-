@@ -1,3 +1,6 @@
+/* ****************************************************************************/
+/* Single entity pagination styles */
+/******************************************************************************/
 ul.pagination
     padding-top: 20px
     margin-top: 40px
@@ -19,3 +22,50 @@ ul.pagination
             line-height: 32px
             color: white
             background-color: $pal4
+
+
+/* ****************************************************************************/
+/* Single entity featured image styles */
+/******************************************************************************/
+.entity-featured
+    width: 100%
+    height: 300px
+    background-size: cover
+    margin-bottom: $container-sp-tb
+/* ****************************************************************************/
+/* Single entity related entities filter, view-mode etc. styles */
+/******************************************************************************/
+.entities
+    .filters
+        float: left
+
+    .view-mode
+        float: right
+
+        button
+            &.active, &:hover
+                color: $pal1
+    .view
+        &:not(.active)
+            display: none
+
+        &.active
+            display: block
+
+ul.inline
+    li
+        display: inline-block
+        vertical-align: middle
+        padding: 0px 5px
+        i
+            vertical-align: middle
+        &:not(:last-child)
+            border-right: 1px solid #cdcdcd
+
+.meta-tags
+    .is-complete
+        cursor: pointer
+        .complete
+            color: green
+        .in-progress
+            color: red

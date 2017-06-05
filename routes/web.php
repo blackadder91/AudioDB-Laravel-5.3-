@@ -12,7 +12,13 @@
 */
 
 Auth::routes();
-
 Route::get('/', 'IndexController@index');
-
+Route::resource('archive', 'ArchiveController');
 Route::resource('artists', 'ArtistController');
+Route::resource('recordings', 'RecordingController');
+Route::post('recordings/filter', 'RecordingController@filter')->name('recordings.filter');
+Route::resource('releases', 'ReleaseController');
+Route::post('releases/filter', 'ReleaseController@filter')->name('releases.filter');
+Route::resource('countries', 'CountryController');
+Route::resource('genres', 'GenreController');
+Route::resource('labels', 'LabelController');

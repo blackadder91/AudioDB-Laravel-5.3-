@@ -1,0 +1,53 @@
+form
+    max-width: 500px
+    width: 100%
+    margin: 15px 0px
+    .select2-container--default .select2-selection--single
+        border-radius: 0px
+    select, .select2
+        width: 50%
+        margin: 10px 0px
+    input, textarea
+        padding-left: 5px
+        padding-right: 5px
+    .input-group
+        margin: 8px 0px
+        label
+            padding-right: 15px
+        &.no-label
+            input
+                width: 100%
+        &.with-label
+            white-space: nowrap
+            &.with-textarea
+                label
+                    vertical-align: top
+                textarea
+                    max-width: 50%
+            label, input, textarea
+                width: 50%
+                display: inline-block
+                vertical-align: middle
+            label
+                text-align: right
+        &.checkbox
+            white-space: nowrap
+            label, input
+                display: inline-block
+                width: 50%
+            label
+                text-align: right
+            input
+                width: auto
+                text-align: left
+        &.submit
+            margin-top: 30px
+            text-align: right
+            input[type="submit"], button
+                margin-left: 50%
+                width: auto
+        &.textarea
+            label, textarea
+                width: 100%
+                textarea
+                    max-width: 100%

@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - {{ config('app.name', 'AudioDB') }}</title>
+    <script src="/js/jquery-3.2.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link href="/css/select2.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
     <script>
         window.Laravel = <?php echo json_encode([
@@ -32,7 +35,13 @@
                         <li><a href="{{ url('/artists') }}">Artists</a></li>
                         <li><a href="{{ url('/recordings') }}">Recordings</a></li>
                         <li><a href="{{ url('/releases') }}">Releases</a></li>
-                        <li><a href="#">Other</a></li>
+                        <li><a href="#">Other</a>
+                            <ul class="sub-menu">
+                                <li><a href="{{ url('/countries') }}">Countries</a></li>
+                                <li><a href="{{ url('/genres') }}">Genres</a></li>
+                                <li><a href="{{ url('/labels') }}">Labels</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <div class="search-bar">

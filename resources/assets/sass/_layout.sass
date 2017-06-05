@@ -6,6 +6,7 @@ $pal1: #92a8d1
 $pal2: #f7cac9
 $pal3: #f7786b
 $pal4: #034f84
+$maroon: #800000
 
 //$primary-font: 'Raleway', sans-serif
 $primary-font: "Source Sans Pro", sans-serif
@@ -17,6 +18,10 @@ $container-sp-tb: 20px
 
 *, div
     box-sizing: border-box
+
+img
+    width: 100%
+    height: auto
 
 body
     font-family: $primary-font
@@ -46,7 +51,32 @@ h2
     font-size: 1.25em
 
 h3
+    font-size: 1.1em
+
+h4
     font-size: 1em
+
+button, input[type="submit"]
+    -moz-appearance: none
+    -webkit-appearance: none
+    outline: none
+    border: none
+    background-color: transparent
+    padding: 0
+    margin: 0
+
+    &.active
+        cursor: default
+
+a, input[type="submit"], button
+    &.btn
+        background-color: $pal4
+        color: white
+        padding: 7px 12px
+        transition: all .333s
+
+        &:hover
+            background-color: $maroon
 
 .clearfix
     clear: both
@@ -126,11 +156,46 @@ $page-header-hg: 80px
         align-items: center
 
     li
+        position: relative
         margin: 0 15px
+        &:hover .sub-menu
+            display: block
 
     a
         font-size: 18px
         padding: 10px
+
+    ul.sub-menu
+        display: none
+        text-align: center
+        position: absolute
+        top: 32px
+        left: 50%
+        transform: translateX(-50%)
+        background-color: $pal4
+        padding: 5px 0px
+
+        &::before
+            content: " "
+            width: 120px
+            height: 12px
+            position: absolute
+            top: -12px
+            left: 0
+            right: 0
+            margin: 0 auto
+            background-image: url(../images/triangle.svg)
+            background-size: 50%
+            background-repeat: no-repeat
+            background-position: center top
+
+        li
+            display: block
+            &:not(:last-child)
+                border-bottom: 1px solid white
+            a
+                color: white
+                font-size: 12px
 
 .search-bar
     position: relative
@@ -241,7 +306,7 @@ $page-header-hg: 80px
 
         h1, h2, h3, h4, h5, h6
             margin: .5em 0
-            
+
         p
             margin: 1em 0
             font-size: 15px
@@ -251,9 +316,90 @@ $page-header-hg: 80px
         section
             margin: 1em 0
 
+        article
+            margin-bottom: 1em
+
+            p:first-of-type
+                margin-top: 0
+
+
         .content
             ul
                 list-style-type: square
             ul, ol
                 padding-left: 1em
                 margin-left: 1em
+
+/* ****************************************************************************/
+/* GENERAL TABLE */
+/******************************************************************************/
+table
+    width: 100%
+    text-align: left
+    border-collapse: collapse
+    border: 1px solid $pal4
+    font-size: 13px
+    letter-spacing: 0.075rem
+
+    thead
+        tr
+            background-color: $pal4
+            color: white
+            border-bottom: 1px solid $pal4
+        th
+            font-weight: bold
+
+        th.year
+            width: 40px
+        th.label
+            width: 140px
+
+    td, th
+        padding: 6px
+    tr
+        border-bottom: 1px solid $pal1
+    tr:last-child
+        border-bottom: none
+
+    tbody
+        tr:hover
+            color: white
+            background-color: $pal1
+
+            a
+                color: white
+
+
+.col-layout
+    &.two-thirds-one-third
+        .row
+            margin: 15px -15px
+        .col
+            float: left
+            padding: 15px
+        .col:first-of-type
+            width: 66.667%
+        .col:nth-child(2)
+            width: 33.334%
+
+/* ****************************************************************************/
+/* ERROR MESSAGES */
+/******************************************************************************/
+.page-container .error-messages
+    border: 1px solid $maroon
+    padding: 15px
+    h3
+        color: $maroon
+    p
+        margin: 5px 0px
+
+/* ****************************************************************************/
+/* SIDEBAR FILTER */
+/******************************************************************************/
+form.entity-filter
+    input:not(.btn), select
+        width: 100%
+        margin: 10px 0px
+    .btn
+        width: auto
+        float: right

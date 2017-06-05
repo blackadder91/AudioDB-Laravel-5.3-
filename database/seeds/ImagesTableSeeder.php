@@ -90,11 +90,27 @@ class ImagesTableSeeder extends Seeder
                 'imageable_type' => 'App\Release',
             ],
             [
+                'title' => 'Wish You Were Here',
+                'slug' => str_slug('Wish You Were Here'),
+                'filename' => 'wish-you-were-here.jpg',
+                'image_type_id' => $recording_main,
+                'imageable_id' => 4,
+                'imageable_type' => 'App\Recording',
+            ],
+            [
                 'title' => 'The Essential',
                 'slug' => str_slug('The Essential'),
                 'filename' => 'mj-the-essential.jpg',
                 'image_type_id' => $recording_main,
                 'imageable_id' => 2,
+                'imageable_type' => 'App\Recording',
+            ],
+            [
+                'title' => 'Low',
+                'slug' => str_slug('Low'),
+                'filename' => 'low.jpg',
+                'image_type_id' => $recording_main,
+                'imageable_id' => 5,
                 'imageable_type' => 'App\Recording',
             ],
 
