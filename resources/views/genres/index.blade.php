@@ -7,6 +7,21 @@
 
 @section('content')
     @if(count($genres) > 0)
+    <div class="entity-add-form">
+        <form action="{{ route('genres.store') }}" method="post">
+            {{ csrf_field() }}
+            <input type="text" id="title" name="title" placeholder="Title" />
+            <select id="genre" name="genre">
+                <option value="-" disabled selected>Select parent genre</option>
+                <option value="0">None</option>
+                @foreach($genres as $genre)
+                    <option {{ $genre->id == Request::old('genre_id') ? 'selected' : '' }} value="{{ $genre->id }}">{{ $genre->title }}</option>
+                @endforeach
+            </select>
+            <input class="btn" type="submit" name="submit" value="Add" />
+        </form>
+    </div>
+    <hr>
     <ul class="genre-list">
     @foreach($genres as $genre)
         <li>

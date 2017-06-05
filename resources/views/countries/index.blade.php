@@ -7,6 +7,15 @@
 
 @section('content')
     @if(count($countries) > 0)
+    <div class="entity-add-form">
+        <form action="{{ route('countries.store') }}" method="post">
+            {{ csrf_field() }}
+            <input type="text" id="title" name="title" placeholder="Title" />
+            <input type="text" id="title_short" name="title_short" placeholder="Title (short)" />
+            <input class="btn" type="submit" name="submit" value="Add" />
+        </form>
+    </div>
+    <hr>
     <ul class="country-list">
     @foreach($countries as $country)
         <li>
