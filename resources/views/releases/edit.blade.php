@@ -22,7 +22,7 @@
         <input id="isbn" type="text" name="isbn" value="{{ $entity->isbn }}" />
     </div>
     <div class="input-group with-label">
-        <label for="year">Release year</label>
+        <label for="year">Year</label>
         <input id="year" type="text" name="year" value="{{ $entity->year }}" >
     </div>
     <div class="input-group with-label">
@@ -67,6 +67,10 @@
         <label for="use_recording_photo">Use recording photo?</label>
         <input id="use_recording_photo" type="checkbox" name="use_recording_photo" {{ ($entity->use_recording_photo) ? "checked" : "" }}/>
     </div>
+    <div class="input-group with-label">
+        <label for="image_url">Image url</label>
+        <input id="image_url" type="text" name="image_url" value="{{ Request::old('image_url') }}" />
+    </div>    
     <div class="input-group with-label">
         <label for="image">Image</label>
         <input id="image" type="file" name="image" value="{{ Request::old('image') }}" />

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\Events\EntityStored;
 use App\Http\Requests\StoreArtistRequest;
 use App\Artist;
 use App\AlbumType;
@@ -14,6 +15,22 @@ use App\Helpers\ImageHelper;
 
 class ArtistController extends Controller
 {
+    protected $months = array(
+        '',
+        'january',
+        'february',
+        'march',
+        'april',
+        'may',
+        'june',
+        'july',
+        'august',
+        'september',
+        'october',
+        'november',
+        'december'
+    );
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +38,7 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        $artists = Artist::orderBy('title')->paginate(250);
+        $artists = Artist::orderBy('title')->paginate(1000);
 
         $artistsGrouped = array();
         $letter = '';
@@ -57,7 +74,6 @@ class ArtistController extends Controller
      */
     public function store(StoreArtistRequest $request)
     {
-
         $title = trim($request->input('title'));
 
         if (Artist::where('title', $title)->get()->count() >0 )
@@ -68,6 +84,7 @@ class ArtistController extends Controller
 
         $isBand = $request->input('is_band') ? true : false;
         $description = trim($request->input('description'));
+        $dobText = trim($request->input('dob_text'));
 
         $entity = new Artist;
         $entity->title = $title;
@@ -75,23 +92,65 @@ class ArtistController extends Controller
         $entity->slug = $title;
 
         if (!$isBand) {
-            $dob = trim($request->input('dob'));
+            if ($dobText != '') {
+                $dobParts = explode(' ', $dobText);
+                if (count($dobParts) < 3)
+                    return redirect()
+                        ->back()
+                        ->withErrors(array('Invalid value in date field1'))
+                        ->withInput();
+
+                $dobPart1 = trim(strtolower(rtrim($dobParts[0], ',')));
+                $dobPart2 = trim(strtolower(rtrim($dobParts[1], ',')));
+                $dobPart3 = trim(rtrim($dobParts[2], ','));
+
+                if($idx = array_search($dobPart1, $this->months)) {
+                    $dateMonth = $idx;
+                    $dateDay = intval($dobPart2);
+                }
+                else {
+                    $dateDay = intval($dobPart1);
+                    $idx = array_search($dobPart2, $this->months);
+                    if (!$idx)
+                        return redirect()
+                            ->back()
+                            ->withErrors(array('Invalid value in date field2'))
+                            ->withInput();
+
+                    $dateMonth = $idx;
+                }
+
+                $dateYear = intval($dobPart3);
+
+                $dob = $dateYear . '-' . $dateMonth . '-' . $dateDay;
+            } else {
+                $dob = trim($request->input('dob'));
+            }
             $entity->dob = $dob;
         }
 
         $entity->description = $description;
         $entity->save();
 
-        // Upload artist photo
-        if ($request->hasFile('image')) {
-            if (! ImageHelper::upload($request->file('image'), 'App\\Artist', 'artist_main', $request->input('title'), $entity) )
-                return redirect()
-                    ->back()
-                    ->withErrors(array('Failed to upload image'))
-                    ->withInput();
-        }
+        $entityId = DB::getPdo()->lastInsertId();
+        $eventData = array(
+            'request' => $request,
+            'imageable_type' => 'App\\Artist',
+            'image_type' => 'artist_main',
+            'entity' => $entity,
+        );
 
-        return view('artists.create');
+        $event = event(new EntityStored($eventData));
+
+        if(count($event) > 0)
+            return redirect()
+                ->back()
+                ->withErrors($event)
+                ->withInput();
+
+        return redirect()->action(
+            'RecordingController@createWithArtistRef', ['id' => $entityId]
+        );
     }
 
     /**
@@ -104,7 +163,7 @@ class ArtistController extends Controller
     {
         $artist = Artist::find($id);
         $albumTypes = AlbumType::all();
-        $recordings = Recording::where('artist_id', $artist->id)->orderBy('release_date', 'asc')->get();
+        $recordings = Recording::with('label')->where('artist_id', $artist->id)->orderBy('year', 'asc')->get();
         return view('artists.show')
             ->withArtist($artist)
             ->with('albumTypes', $albumTypes)

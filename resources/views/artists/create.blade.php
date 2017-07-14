@@ -20,9 +20,17 @@
         <label for="dob">Date of birth</label>
         <input id="dob" type="date" name="dob"/ value="{{ Request::old('dob') }}" >
     </div>
+    <div class="input-group with-label">
+        <label for="dob">Date of birth (text)</label>
+        <input id="dob_text" type="text" name="dob_text"/ value="{{ Request::old('dob_text') }}" >
+    </div>
     <div class="input-group with-label with-textarea">
         <label for="description">Description</label>
         <textarea id="description" name="description" rows="10">{{ Request::old('description') }}</textarea>
+    </div>
+    <div class="input-group with-label">
+        <label for="image_url">Image url</label>
+        <input id="image_url" type="text" name="image_url" value="{{ Request::old('image_url') }}" />
     </div>
     <div class="input-group with-label">
         <label for="image">Image</label>

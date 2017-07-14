@@ -11,6 +11,7 @@
     <article class="content">
         <h1>{{ $artist->title }}</h1>
         <p>{{ $artist->description }}</p>
+        <a class="btn new-related-entity" href="{{ url("recordings/create/artist/{$artist->id}") }}">New recording</a>        
     </article>
     <hr>
     <article class="entities recordings">
@@ -42,7 +43,7 @@
                 <div class="inner">
                     <div class="heading">
                         <a href="{{ url('recordings', [$recording->id]) }}" title="{{ $recording->title }}">{{ $recording->title }}</a>
-                        <time>{{ date("Y", strtotime($recording->release_date)) }}</time>
+                        <time>{{ date("Y", strtotime($recording->year)) }}</time>
                     </div>
                     <img src="{{ $recording->getMainImageUrl() }}">
                 </div>
@@ -56,15 +57,13 @@
                     <tr>
                         <th class="year">Year</th>
                         <th class="title">Title</th>
-                        <th class="label">Label</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($recordings as $recording)
                     <tr class="item" data-album-type="{{ $recording->albumType->slug }}" data-title="{{ $recording->title }}">
-                        <td>{{ date("Y", strtotime($recording->release_date)) }}</td>
+                        <td>{{ date("Y", strtotime($recording->year)) }}</td>
                         <td><a href="{{ url('recordings', [$recording->id]) }}" title="{{ $recording->title }}">{{ $recording->title }}</a></td>
-                        <td>{{ $recording->label->title }}</td>
                     </tr>
                 @endforeach
                 </tbody>

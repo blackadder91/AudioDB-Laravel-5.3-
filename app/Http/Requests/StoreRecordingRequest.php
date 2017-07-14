@@ -27,11 +27,10 @@ class StoreRecordingRequest extends FormRequest
             'artist' => 'required',
             'album_type' => 'required',
             'genre' => 'required',
-            'label' => 'required',
             'title' => 'required',
-            'release_date' => 'required|date',
+            'year' => 'required|numeric',
             'slug' => 'required|unique:recordings',
-            'image' => 'required',
+            'image' => 'required_without:image_url',
         ];
     }
 }

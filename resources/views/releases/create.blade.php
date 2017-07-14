@@ -21,7 +21,7 @@
         <input id="isbn" type="text" name="isbn" value="{{ Request::old('isbn') }}" />
     </div>
     <div class="input-group with-label">
-        <label for="year">Release year</label>
+        <label for="year">Year</label>
         <input id="year" type="text" name="year" value="{{ Request::old('year') }}" >
     </div>
     <div class="input-group with-label">
@@ -52,7 +52,7 @@
         <label for="recording">Recording</label>
         <select id="recording" name="recording">
             @foreach($recordings as $recording)
-                <option data-slug="{{ $recording->slug }}" {{ $recording->id == Request::old('recording_id') ? 'selected' : '' }} value="{{ $recording->id }}">{{ $recording->title . ' (' . $recording->artist->title . ')' }}</option>
+                <option data-slug="{{ $recording->slug }}" {{ $recording->id == Request::old('recording_id') || $recording->id == $recordingRefId ? 'selected' : '' }} value="{{ $recording->id }}">{{ $recording->title . ' (' . $recording->artist->title . ')' }}</option>
             @endforeach
         </select>
     </div>
@@ -69,20 +69,24 @@
         <input id="use_recording_photo" type="checkbox" name="use_recording_photo" {{ Request::old('use_recording_photo') ? "checked" : "" }}/>
     </div>
     <div class="input-group with-label">
+        <label for="image_url">Image url</label>
+        <input id="image_url" type="text" name="image_url" value="{{ Request::old('image_url') }}" />
+    </div>
+    <div class="input-group with-label">
         <label for="image">Image</label>
         <input id="image" type="file" name="image" value="{{ Request::old('image') }}" />
     </div>
     <div class="input-group with-label">
         <label for="arch_disc">Archive disc</label>
         <select id="arch_disc" name="arch_disc">
-            <option value="0">None</option>
             @foreach($archDiscs as $archDisc)
                 <option value="{{ $archDisc->id }}">{{ $archDisc->title }}</option>
             @endforeach
+            <option value="0">None</option>
         </select>
     </div>
     <div class="input-group with-label with-textarea">
-        <label for="arch_disc_notes">Notes (archive disc)</label>
+        <label for="arch_disc_notes">Notes</label>
         <input id="arch_disc_notes" type="text" name="arch_disc_notes" value="" />
     </div>
     <div class="input-group submit">
@@ -94,6 +98,7 @@
         var entityCreateForm = $('.release-create-form');
         var slugEl = entityCreateForm.find('input[name="slug"]');
         var detEl = entityCreateForm.find('input[name="catalog_no"], select[name="recording"]');
+
         detEl.change(function() {
             var detStr1 = entityCreateForm.find('input[name="catalog_no"]').val().toLowerCase().replace(/ /g, '-');
             var detStr2 = entityCreateForm.find('select[name="recording"] option:selected').data('slug');

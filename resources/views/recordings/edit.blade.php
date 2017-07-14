@@ -18,8 +18,8 @@
         <input id="slug" type="text" name="slug" value="{{ $entity->slug }}" disabled />
     </div>
     <div class="input-group with-label">
-        <label for="release_date">Release date</label>
-        <input id="release_date" type="date" name="release_date"/ value="{{ $entity->release_date }}" >
+        <label for="year">Year</label>
+        <input id="year" type="date" name="year"/ value="{{ $entity->year }}" >
     </div>
     <div class="input-group with-label">
         <label for="artist">Artist</label>
@@ -57,6 +57,10 @@
         <label for="tracklist">Tracklist</label>
         <textarea id="tracklist" name="tracklist" rows="10">{{ $entity->tracklist }}</textarea>
     </div>
+    <div class="input-group with-label">
+        <label for="image_url">Image url</label>
+        <input id="image_url" type="text" name="image_url" value="{{ Request::old('image_url') }}" />
+    </div>    
     <div class="input-group with-label">
         <label for="image">Image</label>
         <input id="image" type="file" name="image" value="{{ Request::old('image') }}" />

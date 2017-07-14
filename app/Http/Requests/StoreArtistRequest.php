@@ -25,7 +25,7 @@ class StoreArtistRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'dob' => 'required_without:is_band|date'
+            // 'dob' => 'required_without:is_band|date'
         ];
     }
 }

@@ -17,22 +17,17 @@
         <input id="slug" type="text" name="slug" value="{{ Request::old('slug') }}" />
     </div>
     <div class="input-group with-label">
-        <label for="release_date">Release date</label>
-        <input id="release_date" type="date" name="release_date"/ value="{{ Request::old('release_date') }}" >
+        <label for="year">Year</label>
+        <input id="year" type="text" name="year"/ value="{{ Request::old('year') }}" >
     </div>
     <div class="input-group with-label">
         <label for="artist">Artist</label>
         <select id="artist" name="artist">
             @foreach($artists as $artist)
-                <option data-slug="{{ $artist->slug }}" {{ $artist->id == Request::old('artist_id') ? 'selected' : '' }} value="{{ $artist->id }}">{{ $artist->title }}</option>
-            @endforeach
-        </select>
-    </div>
-    <div class="input-group with-label">
-        <label for="label">Label</label>
-        <select id="label" name="label">
-            @foreach($labels as $label)
-                <option {{ $label->id == Request::old('label_id') ? 'selected' : '' }} value="{{ $label->id }}">{{ $label->title }}</option>
+                <option
+                    data-slug="{{ $artist->slug }}" {{ $artist->id == Request::old('artist_id') || $artist->id == $artistRefId ? 'selected' : '' }}
+                    value="{{ $artist->id }}">{{ $artist->title }}
+                </option>
             @endforeach
         </select>
     </div>
@@ -55,6 +50,10 @@
     <div class="input-group with-label with-textarea">
         <label for="tracklist">Tracklist</label>
         <textarea id="tracklist" name="tracklist" rows="10">{{ Request::old('tracklist') }}</textarea>
+    </div>
+    <div class="input-group with-label">
+        <label for="image_url">Image url</label>
+        <input id="image_url" type="text" name="image_url" value="{{ Request::old('image_url') }}" />
     </div>
     <div class="input-group with-label">
         <label for="image">Image</label>

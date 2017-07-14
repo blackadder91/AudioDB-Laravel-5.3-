@@ -17,7 +17,7 @@ class RecordingsTableSeeder extends Seeder
               'title' => 'Master Of Puppets',
               'slug' => str_slug('Metallica - Master Of Puppets', '-'),
               'artist_id' => 2,
-              'release_date' => date("1986-01-01"),
+              'year' => date("1986-01-01"),
               'label_id' => 1,
               'album_type_id' => 1,
               'genre_id' => 18
@@ -30,7 +30,7 @@ class RecordingsTableSeeder extends Seeder
                 'title' => 'The Essential',
                 'slug' => str_slug('Michael Jackson - The Essential', '-'),
                 'artist_id' => 3,
-                'release_date' => date("2004-01-01"),
+                'year' => date("2004-01-01"),
                 'label_id' => 2,
                 'album_type_id' => 2,
                 'genre_id' => 12
@@ -43,7 +43,7 @@ class RecordingsTableSeeder extends Seeder
                 'title' => 'The Wall',
                 'slug' => str_slug('Pink Floyd - The Wall', '-'),
                 'artist_id' => 1,
-                'release_date' => date("1978-01-01"),
+                'year' => date("1978-01-01"),
                 'label_id' => 2,
                 'album_type_id' => 1,
                 'genre_id' => 14
@@ -56,7 +56,7 @@ class RecordingsTableSeeder extends Seeder
                 'title' => 'Wish You Were Here',
                 'slug' => str_slug('Pink Floyd - Wish You Were Here', '-'),
                 'artist_id' => 1,
-                'release_date' => date("1975-09-12"),
+                'year' => date("1975-09-12"),
                 'label_id' => 2,
                 'album_type_id' => 1,
                 'genre_id' => 14
@@ -69,7 +69,7 @@ class RecordingsTableSeeder extends Seeder
                 'title' => 'Low',
                 'slug' => str_slug('David Bowie - Low', '-'),
                 'artist_id' => 4,
-                'release_date' => date("1977-01-14"),
+                'year' => date("1977-01-14"),
                 'label_id' => 5,
                 'album_type_id' => 1,
                 'genre_id' => 12

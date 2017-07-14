@@ -16,7 +16,7 @@ class CreateRecordingsTable extends Migration
             $table->increments('id');
             $table->string('slug')->unique();
             $table->string('title');
-            $table->date('release_date');
+            $table->date('year');
             $table->integer('artist_id')->unsigned();
             $table->integer('label_id')->unsigned();
             $table->integer('album_type_id')->unsigned();

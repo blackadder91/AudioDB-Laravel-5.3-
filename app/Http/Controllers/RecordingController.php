@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Events\EntityStored;
 use App\Http\Requests\StoreRecordingRequest;
 use App\Http\Requests\UpdateRecordingRequest;
 use App\Artist;
@@ -11,7 +13,6 @@ use App\Format;
 use App\Genre;
 use App\Image;
 use App\ImageType;
-use App\Label;
 use App\Recording;
 use App\Release;
 use App\Helpers\ImageHelper;
@@ -59,22 +60,26 @@ class RecordingController extends Controller
             ->withInput($request->all());
     }
 
+    public function createWithArtistRef($id)
+    {
+        return $this->create($id);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($artistRefId = null)
     {
         $artists = Artist::orderBy('title', 'asc')->get();
-        $labels = Label::orderBy('title', 'asc')->get();
         $albumTypes = AlbumType::all();
         $genres = Genre::orderBy('title', 'asc')->get();
         return view('recordings.create')
             ->withArtists($artists)
             ->with('albumTypes', $albumTypes)
-            ->withLabels($labels)
-            ->withGenres($genres);
+            ->withGenres($genres)
+            ->with('artistRefId', $artistRefId);
     }
 
     /**
@@ -97,24 +102,32 @@ class RecordingController extends Controller
         $entity = new Recording;
         $entity->title = $title;
         $entity->slug = $slug;
-        $entity->release_date = $release_date;
+        $entity->year = $year;
         $entity->tracklist = isset($tracklist) ? $tracklist : null;
         $entity->artist_id = $artist;
-        $entity->label_id = $label;
         $entity->album_type_id = $album_type;
         $entity->genre_id = $genre;
         $entity->save();
 
-        // Upload recording photo
-        if ($request->hasFile('image')) {
-            if (! ImageHelper::upload($request->file('image'), 'App\\Recording', 'recording_main', $request->input('title'), $entity) )
-                return redirect()
-                    ->back()
-                    ->withErrors(array('Failed to upload image'))
-                    ->withInput();
-        }
+        $entityId = DB::getPdo()->lastInsertId();
+        $eventData = array(
+            'request' => $request,
+            'imageable_type' => 'App\\Recording',
+            'image_type' => 'recording_main',
+            'entity' => $entity,
+        );
 
-        return redirect()->action('RecordingController@index');
+        $event = event(new EntityStored($eventData));
+
+        if(count($event) > 0)
+            return redirect()
+                ->back()
+                ->withErrors($event)
+                ->withInput();
+
+        return redirect()->action(
+            'ReleaseController@createWithRecordingRef', ['id' => $entityId]
+        );
     }
 
     /**
@@ -144,14 +157,12 @@ class RecordingController extends Controller
     {
         $recording = Recording::find($id);
         $artists = Artist::orderBy('title', 'asc')->get();
-        $labels = Label::orderBy('title', 'asc')->get();
         $albumTypes = AlbumType::all();
         $genres = Genre::orderBy('title', 'asc')->get();
         return view('recordings.edit')
             ->withEntity($recording)
             ->withArtists($artists)
             ->with('albumTypes', $albumTypes)
-            ->withLabels($labels)
             ->withGenres($genres);
     }
 
@@ -168,10 +179,9 @@ class RecordingController extends Controller
         $title = trim($title);
         $entity = Recording::find($id);
         $entity->title = $title;
-        $entity->release_date = $release_date;
+        $entity->year = $year;
         $entity->tracklist = isset($tracklist) ? $tracklist : null;
         $entity->artist_id = $artist;
-        $entity->label_id = $label;
         $entity->album_type_id = $album_type;
         $entity->genre_id = $genre;
         $entity->save();

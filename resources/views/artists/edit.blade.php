@@ -26,6 +26,10 @@
         <textarea id="description" name="description" rows="10">{{ $entity->description }}</textarea>
     </div>
     <div class="input-group with-label">
+        <label for="image_url">Image url</label>
+        <input id="image_url" type="text" name="image_url" value="{{ Request::old('image_url') }}" />
+    </div>    
+    <div class="input-group with-label">
         <label for="image">Image</label>
         <input id="image" type="file" name="image" value="{{ Request::old('image') }}" />
     </div>

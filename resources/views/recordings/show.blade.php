@@ -16,8 +16,7 @@
                 <div class="col recording-info">
                     <p class="meta">
                         <span><strong>Genre: </strong>{{ $recording->genre->title }}</span><br>
-                        <span><strong>Label: </strong>{{ $recording->label->title }}</span><br>
-                        <span><strong>Released: </strong>{{ $recording->release_date }}</span><br>
+                        <span><strong>Released: </strong>{{ $recording->year }}</span><br>
                     </p>
                     @if($recording->tracklist)
                     <p class="tracklist">
@@ -39,6 +38,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
+            <a class="btn new-related-entity" href="{{ url("/releases/create/recording/{$recording->id}") }}">New recording</a>
         </div>
     </article>
     <hr>

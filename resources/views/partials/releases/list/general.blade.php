@@ -2,9 +2,13 @@
     @foreach($releases as $release)
     <div class="item" data-format="{{ $release->format->slug }}" data-title="{{ $release->title }}">
         <div class="inner">
+            <div class="heading top">
+                <span>{{ $release->format->title_short . ' | ' . $release->label->title_short }}</span>
+            </div>
             <div class="heading">
-                <a href="{{ url('releases', [$release->id]) }}" title="{{ $release->catalog_no }}">{{ $release->catalog_no . ' (' . $release->format->title_short . ', ' . $release->label->title . ')' }}</a>
+                <a href="{{ url('releases', [$release->id]) }}" title="{{ $release->recording->title }}">{{ $release->recording->title }}</a>
                 <time>{{ $release->year }}</time>
+                <a class="artist" href="{{ url('artists', [$release->recording->artist->id]) }}" title="{{ $release->recording->artist->title }}">{{ $release->recording->artist->title }}</a>
             </div>
             <img src="{{ $release->getMainImageUrl() }}">
         </div>

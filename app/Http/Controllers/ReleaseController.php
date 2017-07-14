@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Events\EntityStored;
 use App\Http\Requests\StoreReleaseRequest;
 use App\Http\Requests\UpdateReleaseRequest;
 use App\ArchDisc;
@@ -63,13 +65,19 @@ class ReleaseController extends Controller
             ->withInput($request->all());
     }
 
+    public function createWithRecordingRef($id)
+    {
+        return $this->create($id);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($recordingRefId = null)
     {
+
         $archDiscs = ArchDisc::where('is_complete', '=', false)->get();
         $recordings = Recording::orderBy('title', 'ASC')->get();
         $countries = Country::orderBy('title', 'ASC')->get();
@@ -81,7 +89,8 @@ class ReleaseController extends Controller
             ->withCountries($countries)
             ->withFormats($formats)
             ->withLabels($labels)
-            ->with('archDiscs', $archDiscs);
+            ->with('archDiscs', $archDiscs)
+            ->with('recordingRefId', $recordingRefId);
     }
 
     /**
@@ -117,14 +126,21 @@ class ReleaseController extends Controller
         $entity->use_recording_photo = isset($use_recording_photo) || (!$request->hasFile('image')) ? true : false;
         $entity->save();
 
-        // Upload recording photo
-        if ($request->hasFile('image')) {
-            if (! ImageHelper::upload($request->file('image'), 'App\\Release', 'recording_main', $catalog_no, $entity) )
-                return redirect()
-                    ->back()
-                    ->withErrors(array('Failed to upload image'))
-                    ->withInput();
-        }
+        $entityId = DB::getPdo()->lastInsertId();
+        $eventData = array(
+            'request' => $request,
+            'imageable_type' => 'App\\Release',
+            'image_type' => 'recording_main',
+            'entity' => $entity,
+        );
+
+        $event = event(new EntityStored($eventData));
+
+        if(count($event) > 0)
+            return redirect()
+                ->back()
+                ->withErrors($event)
+                ->withInput();
 
         if ($arch_disc != 0) {
             $archive = new Archive();
@@ -132,11 +148,14 @@ class ReleaseController extends Controller
             $archive->arch_disc_id = $arch_disc;
             $archive->file_format_id = 1;
             $archive->flags = 0;
-            $archive->notes = $notes;
+            $archive->notes = $arch_disc_notes;
             $archive->save();
         }
 
-        return redirect()->action('ReleaseController@index');
+        return redirect()->action(
+            'ReleaseController@show',
+            array('id' => $entityId)
+        );
     }
 
     /**

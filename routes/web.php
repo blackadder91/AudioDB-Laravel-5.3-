@@ -22,3 +22,7 @@ Route::post('releases/filter', 'ReleaseController@filter')->name('releases.filte
 Route::resource('countries', 'CountryController');
 Route::resource('genres', 'GenreController');
 Route::resource('labels', 'LabelController');
+
+// Routes with referece id to related entities
+Route::get('recordings/create/artist/{artist}', 'RecordingController@createWithArtistRef');
+Route::get('releases/create/recording/{recording}', 'ReleaseController@createWithRecordingRef');
