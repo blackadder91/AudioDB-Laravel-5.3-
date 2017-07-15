@@ -1,3 +1,5 @@
+$i: !important
+
 $pal-white: #fff
 $pal-grey: #636b6f
 $pal-grey2: #dee0df
@@ -403,3 +405,16 @@ form.entity-filter
     .btn
         width: auto
         float: right
+
+/* ****************************************************************************/
+/* LISTS */
+/******************************************************************************/
+ul.inline
+    list-style-type: none
+    padding-left: 0$i
+    margin-left: 0$i
+    &.sep
+        li
+            border-right: 1px solid #efefef
+            &:last-child
+                border-right: none

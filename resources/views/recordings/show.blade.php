@@ -44,7 +44,7 @@
     <hr>
     <article class="entities releases">
         <h2>Releases</h2>
-        @include('partials/releases/list', ['type' => 'general'])
+        @include('partials/releases/list', ['type' => 'related'])
     </article>
 
 @endsection

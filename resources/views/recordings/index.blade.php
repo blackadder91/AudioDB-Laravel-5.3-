@@ -9,7 +9,7 @@
 @section('content')
     <article class="entities recordings">
         @if($recordings->count() > 0)
-            @include('partials/recordings/list', ['type' => 'general'])
+            @include('partials/recordings/list', ['type' => 'index'])
         @else
         <p class="note">No data</p>
         @endif

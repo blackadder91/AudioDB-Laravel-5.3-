@@ -8,7 +8,6 @@
             <div class="heading">
                 <a href="{{ url('releases', [$release->id]) }}" title="{{ $release->recording->title }}">{{ $release->recording->title }}</a>
                 <time>{{ $release->year }}</time>
-                <a class="artist" href="{{ url('artists', [$release->recording->artist->id]) }}" title="{{ $release->recording->artist->title }}">{{ $release->recording->artist->title }}</a>
             </div>
             <img src="{{ $release->getMainImageUrl() }}">
         </div>

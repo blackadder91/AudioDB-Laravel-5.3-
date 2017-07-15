@@ -164,10 +164,19 @@ class ArtistController extends Controller
         $artist = Artist::find($id);
         $albumTypes = AlbumType::all();
         $recordings = Recording::with('label')->where('artist_id', $artist->id)->orderBy('year', 'asc')->get();
+
+        $meta = array();
+        if (!$artist->is_band)
+            $meta['Date of birth'] = $artist->dob;
+
+        $meta['Recordings'] = $artist->recordings->count();
+        $meta['Releases'] = $artist->releases->count();
+
         return view('artists.show')
             ->withArtist($artist)
             ->with('albumTypes', $albumTypes)
-            ->withRecordings($recordings);
+            ->withRecordings($recordings)
+            ->withMeta($meta);
     }
 
     /**
