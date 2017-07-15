@@ -29,9 +29,9 @@
     </article>
     <hr>
     <article class="entities recordings">
-        @include('partials/releases/list', ['type' => 'general'])
+        @include('partials/releases/list', ['type' => 'index'])
     </article>
-    
+
 
 @endsection
 @push('actions')
