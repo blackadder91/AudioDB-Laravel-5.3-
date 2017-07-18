@@ -75,11 +75,17 @@ class RecordingController extends Controller
         $artists = Artist::orderBy('title', 'asc')->get();
         $albumTypes = AlbumType::all();
         $genres = Genre::orderBy('title', 'asc')->get();
+        $refArtist = null;
+
+        if($artistRefId != null) // get referred artist
+            $refArtist = Artist::find($artistRefId);
+
         return view('recordings.create')
             ->withArtists($artists)
             ->with('albumTypes', $albumTypes)
             ->withGenres($genres)
-            ->with('artistRefId', $artistRefId);
+            ->with('artistRefId', $artistRefId)
+            ->with('refArtist', $refArtist);
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Events\EntityStored;
 use App\Http\Requests\StoreArtistRequest;
 use App\Artist;
 use App\AlbumType;
+use App\Genre;
 use App\Image;
 use App\ImageType;
 use App\Recording;
@@ -63,7 +64,9 @@ class ArtistController extends Controller
      */
     public function create()
     {
-        return view('artists.create');
+        $genres = Genre::orderBy('title', 'asc')->get();
+        return view('artists.create')
+            ->withGenres($genres);
     }
 
     /**
@@ -90,6 +93,7 @@ class ArtistController extends Controller
         $entity->title = $title;
         $entity->is_band = $isBand;
         $entity->slug = $title;
+        $entity->genre_id = $request->input('genre');
 
         if (!$isBand) {
             if ($dobText != '') {
@@ -188,7 +192,10 @@ class ArtistController extends Controller
     public function edit($id)
     {
         $entity = Artist::find($id);
-        return view('artists.edit')->withEntity($entity);
+        $genres = Genre::orderBy('title', 'asc')->get();
+        return view('artists.edit')
+        ->withEntity($entity)
+        ->withGenres($genres);
     }
 
     /**
@@ -204,6 +211,7 @@ class ArtistController extends Controller
         $entity->title = trim($request->input('title'));
         $entity->is_band = $request->input('is_band') ? true : false;
         $entity->description = trim($request->input('description'));
+        $entity->genre_id = $request->input('genre');
         if (!$entity->is_band)
             $entity->dob = $request->input('dob');
 

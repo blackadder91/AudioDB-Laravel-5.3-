@@ -43,7 +43,7 @@
         <label for="genre">Genre</label>
         <select id="genre" name="genre">
             @foreach($genres as $genre)
-                <option {{ $genre->id == Request::old('genre_id') ? 'selected' : '' }} value="{{ $genre->id }}">{{ $genre->title }}</option>
+                <option {{ $genre->id == Request::old('genre_id') || ($refArtist != null ? $refArtist->genre_id == $genre->id : false ) ? 'selected' : '' }} value="{{ $genre->id }}">{{ $genre->title }}</option>
             @endforeach
         </select>
     </div>

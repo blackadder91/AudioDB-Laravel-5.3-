@@ -29,6 +29,14 @@
         <textarea id="description" name="description" rows="10">{{ Request::old('description') }}</textarea>
     </div>
     <div class="input-group with-label">
+        <label for="genre">Genre</label>
+        <select id="genre" name="genre">
+            @foreach($genres as $genre)
+                <option {{ $genre->id == Request::old('genre_id') ? 'selected' : '' }} value="{{ $genre->id }}">{{ $genre->title }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="input-group with-label">
         <label for="image_url">Image url</label>
         <input id="image_url" type="text" name="image_url" value="{{ Request::old('image_url') }}" />
     </div>

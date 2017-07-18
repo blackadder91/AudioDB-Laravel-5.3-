@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Artist extends Model
 {
+    public function genre()
+    {
+        return $this->belongsTo('App\Genre');
+    }
+        
     public function recordings()
     {
         return $this->hasMany('App\Recording');

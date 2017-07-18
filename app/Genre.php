@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Genre extends Model
 {
-    public function recording()
+    public function artists()
+    {
+        return $this->hasMany('App\Recording');
+    }
+
+    public function recordings()
     {
         return $this->hasMany('App\Recording');
     }
