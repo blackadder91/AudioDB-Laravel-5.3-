@@ -68,8 +68,9 @@ class ImageHelper
     }
     private function _getImageTitle()
     {
-        return in_array($this->imageableType, $this->imageTitleMap) ?
+        $imageTitleField = in_array($this->imageableType, $this->imageTitleMap) ?
             $this->imageTitleMap[$this->imageableType] : $this->imageTitleMap['default'];
+        return $this->entity->$imageTitleField;
     }
 
     public function upload($file, $imageType, $fileSrcType = 'file_obj')
