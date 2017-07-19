@@ -191,6 +191,16 @@ class RecordingController extends Controller
         $entity->album_type_id = $album_type;
         $entity->genre_id = $genre;
         $entity->save();
+
+        $eventData = array(
+            'request' => $request,
+            'imageable_type' => 'App\\Recording',
+            'image_type' => 'recording_main',
+            'entity' => $entity,
+        );
+
+        $event = event(new EntityUpdated($eventData));
+
         return redirect()->action(
             'RecordingController@show', ['id' => $id]
         );

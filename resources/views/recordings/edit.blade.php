@@ -19,21 +19,13 @@
     </div>
     <div class="input-group with-label">
         <label for="year">Year</label>
-        <input id="year" type="date" name="year"/ value="{{ $entity->year }}" >
+        <input id="year" type="text" name="year"/ value="{{ $entity->year }}" >
     </div>
     <div class="input-group with-label">
         <label for="artist">Artist</label>
         <select id="artist" name="artist">
             @foreach($artists as $artist)
                 <option {{ $artist->id == $entity->artist_id ? 'selected' : '' }} value="{{ $artist->id }}">{{ $artist->title }}</option>
-            @endforeach
-        </select>
-    </div>
-    <div class="input-group with-label">
-        <label for="label">Label</label>
-        <select id="label" name="label">
-            @foreach($labels as $label)
-                <option {{ $label->id == $entity->label_id ? 'selected' : '' }} value="{{ $label->id }}">{{ $label->title }}</option>
             @endforeach
         </select>
     </div>
@@ -60,7 +52,7 @@
     <div class="input-group with-label">
         <label for="image_url">Image url</label>
         <input id="image_url" type="text" name="image_url" value="{{ Request::old('image_url') }}" />
-    </div>    
+    </div>
     <div class="input-group with-label">
         <label for="image">Image</label>
         <input id="image" type="file" name="image" value="{{ Request::old('image') }}" />

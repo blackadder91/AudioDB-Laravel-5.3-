@@ -19,11 +19,6 @@ class StoreImage
         //
     }
 
-    public function setError($msg)
-    {
-        session(array('event_error', $msg));
-    }
-
     /**
      * Handle the event.
      *
@@ -32,7 +27,6 @@ class StoreImage
      */
     public function handle(EntityStored $event)
     {
-
         $request = $event->request;
         $image_url = trim($request->input('image_url'));
         if ($request->hasFile('image') || $image_url != '') {
@@ -42,6 +36,8 @@ class StoreImage
                 $imageHelper->upload($request->file('image'), $event->image_type);
 
                 return $imageUploadResult;
+        } else {
+            return 'No image detected in request';
         }
     }
 }

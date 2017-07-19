@@ -2,10 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Release extends Model
+class Release extends AbstractRecording
 {
+    public function __construct()
+    {
+        $this->metaEntityCode = 'release';
+        parent::__construct();
+    }
+
     public function recording()
     {
         return $this->belongsTo('App\Recording');

@@ -9,7 +9,6 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Http\Request as Request;
-use Illuminate\Database\Eloquent\Model as Model;
 
 class EntityStored
 {

@@ -13,15 +13,22 @@ class EntityUpdated
 {
     use InteractsWithSockets, SerializesModels;
 
+    public $request;
+    public $imageable_type;
+    public $image_type;
+    public $entity;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($data)
-    {
-        //
-    }
+     public function __construct($data)
+     {
+         $this->request = $data['request'];
+         $this->imageable_type = $data['imageable_type'];
+         $this->image_type = $data['image_type'];
+         $this->entity = $data['entity'];
+     }
 
     /**
      * Get the channels the event should broadcast on.
