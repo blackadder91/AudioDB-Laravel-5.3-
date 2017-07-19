@@ -11,4 +11,5 @@ $(document).ready(function(){
     $('select').select2();
     $('.entities.grid-view .item').matchHeight();
     setMinPageHeight();
+    $('.entities-grid .item, .artist-list.grid .col').matchHeight();
 })
