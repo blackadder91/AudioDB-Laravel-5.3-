@@ -70,11 +70,10 @@ class ArchiveController extends Controller
     public function show($id)
     {
         $disc = ArchDisc::find($id);
-        //$releases = Release::where('recording_id', $recording->id)->get();
         $formats = Format::all();
         $releases = Release::join('archive', 'archive.release_id', '=', 'releases.id')
             ->where('archive.arch_disc_id', $id)
-            ->get();
+            ->get(array('releases.*'));
 
         return view('archive.show')
             ->withReleases($releases)
