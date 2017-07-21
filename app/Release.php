@@ -2,13 +2,13 @@
 
 namespace App;
 
-class Release extends AbstractRecording
+use App\Image;
+use App\Helpers\ImageHelper;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Release extends Model
 {
-    public function __construct()
-    {
-        $this->metaEntityCode = 'release';
-        parent::__construct();
-    }
 
     public function recording()
     {
@@ -63,36 +63,12 @@ class Release extends AbstractRecording
 
     public function getMainImageUrl($size = 'full')
     {
-        if ($this->getImage('recording_main') != null ) {
-            $thumbPath = $size == 'full' ? '' : 'thumbnails/' . $size . '/';
-            $imageUri = url('/') . '/images/media/releases/' . $this->slug . '/' . $thumbPath;
-            return $imageUri . $this->getImage('recording_main')->filename;
-        } else {
-            return $this->recording->getMainImageUrl($size);
-        }
+        $ih = new ImageHelper($this);
+        if ($releaseImgUrl = $ih->getImageUrl('recording_main', $size))
+            return $releaseImgUrl;
+
+        $ih = new ImageHelper($this->recording);
+        return $ih->getImageUrl('recording_main', $size);
     }
 
-    public function getImage($imageType, $slug = '')
-    {
-        $image = $this->images()
-            ->join('image_types', 'images.image_type_id', '=', 'image_types.id')
-            ->where('image_types.code', $imageType)
-            ->where('images.imageable_type', get_class());
-
-        if ($slug == '')
-            $image = $image->inRandomOrder();
-        else
-            $image = $image->where('images.slug', '=', $slug);
-
-        return $image->first();
-    }
-
-    public function getImages($imageType)
-    {
-        return $this->images()
-            ->join('image_types', 'images.image_type_id', '=', 'image_types.id')
-            ->where('image_types.code', $imageType)
-            ->where('images.imageable_type', get_class())
-            ->get();
-    }
 }

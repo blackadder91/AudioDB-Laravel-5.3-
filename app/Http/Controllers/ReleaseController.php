@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\EntityStored;
+use App\Events\EntityUpdated;
 use App\Http\Requests\StoreReleaseRequest;
 use App\Http\Requests\UpdateReleaseRequest;
 use App\ArchDisc;
@@ -29,6 +30,7 @@ class ReleaseController extends Controller
     {
         $formats = Format::all();
         $releases = Release::orderBy('created_at', 'DESC')->paginate(50);
+
         return view('releases.index')
             ->withReleases($releases)
             ->with('formats', $formats);
@@ -135,8 +137,7 @@ class ReleaseController extends Controller
         );
 
         $event = event(new EntityStored($eventData));
-
-        if(count($event) > 0)
+        if(count($event) > 0 && $event[0] != null)
             return redirect()
                 ->back()
                 ->withErrors($event)

@@ -1,12 +1,16 @@
 <?php
 namespace App;
 
+use App\Image;
+use App\Helpers\ImageHelper;
+
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRecording extends Model
 {
     protected $imagesUri;
     protected $metaEntityCode;
+    protected $recording;
 
     public function __construct()
     {
@@ -15,31 +19,13 @@ abstract class AbstractRecording extends Model
 
     private function _getClass()
     {
-        return 'App\\' . ucfirst($this->metaEntityCode);
+        return ucfirst($this->metaEntityCode);
     }
 
     public function getMainImageUrl($size = 'full')
     {
-        $thumbPath = $size == 'full' ? '' : 'thumbnails/' . $size . '/';
-        if($image = $this->getImage('recording_main'))
-            return $this->imagesUri . $this->slug . '/' . $thumbPath . $image->filename;
-        else
-            return '';
-    }
-
-    public function getImage($imageType, $slug = '')
-    {
-        $image = $this->images()
-            ->join('image_types', 'images.image_type_id', '=', 'image_types.id')
-            ->where('image_types.code', $imageType)
-            ->where('images.imageable_type', $this->_getClass());
-
-        if ($slug == '')
-            $image = $image->inRandomOrder();
-        else
-            $image = $image->where('images.slug', '=', $slug);
-
-        return $image->first();
+        $ih = new ImageHelper($this);
+        return $ih->getImageUrl($this, 'recording_main', $size)
     }
 
     public function getImages($imageType)
@@ -47,7 +33,7 @@ abstract class AbstractRecording extends Model
         return $this->images()
             ->join('image_types', 'images.image_type_id', '=', 'image_types.id')
             ->where('image_types.code', $imageType)
-            ->where('images.imageable_type', $this->_getClass())
+            ->where('images.imageable_type', 'like', '%' . $this->_getClass() . '%')
             ->get();
     }
 

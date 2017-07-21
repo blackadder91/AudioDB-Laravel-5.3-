@@ -2,14 +2,13 @@
 
 namespace App;
 
-class Recording extends AbstractRecording
-{
-    public function __construct()
-    {
-        $this->metaEntityCode = 'recording';
-        parent::__construct();
-    }
+use App\Image;
+use App\Helpers\ImageHelper;
 
+use Illuminate\Database\Eloquent\Model;
+
+class Recording extends Model
+{
     public function albumType()
     {
         return $this->belongsTo('App\AlbumType');
@@ -38,6 +37,12 @@ class Recording extends AbstractRecording
     public function images()
     {
         return $this->morphMany('App\Image', 'imageable');
+    }
+
+    public function getMainImageUrl($size = 'full')
+    {
+        $ih = new ImageHelper($this);
+        return $ih->getImageUrl('recording_main', $size);
     }
 
 }

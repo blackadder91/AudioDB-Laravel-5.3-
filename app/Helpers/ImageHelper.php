@@ -11,6 +11,7 @@ class ImageHelper
 
     protected $allowedFileExt = array('gif', 'jpg', 'jpeg', 'png');
     protected $entity;
+    protected $entityAlias;
     protected $entitySlug;
     protected $fileExt;
     protected $imageableType;
@@ -22,11 +23,45 @@ class ImageHelper
         'medium' => '250',
     );
 
-    public function __construct($entity, $imageableType)
+    private function getEntityAlias()
+    {
+        $entityClass = get_class($this->entity);
+        $match = array();
+        preg_match('/App\\\\(.*)/', $entityClass, $match);
+        if (isset($match[1]))
+            return strtolower($match[1]);
+    }
+
+    public function getImageUrl($imageType, $size = 'full')
+    {
+        $entityAlias = $this->getEntityAlias();
+        $imagesUri = url('/') . '/images/media/' .  $entityAlias . 's/';
+        $thumbPath = $size == 'full' ? '' : 'thumbnails/' . $size . '/';
+
+        if($image = $this->getImage($imageType)) {
+            return $imagesUri . $this->entity->slug . '/' . $thumbPath . $image->filename;
+        } else {
+            return null;
+        }
+    }
+
+    public function getImage($imageType)
+    {
+        $image = Image::join('image_types', 'images.image_type_id', '=', 'image_types.id')
+            ->where('image_types.code', $imageType)
+            ->where('images.imageable_type', 'like', '%' . ucfirst($this->entityAlias) . '%')
+            ->where('imageable_id', $this->entity->id)
+            ->inRandomOrder();
+
+        return $image->first();
+    }
+
+    public function __construct($entity)
     {
         $this->entity = $entity;
-        $this->imageableType = $imageableType;
+        $this->imageableType = get_class($entity);
         $this->entitySlug = $entity->slug;
+        $this->entityAlias = $this->getEntityAlias();
     }
 
     private function _isFileExtAllowed()
@@ -73,10 +108,33 @@ class ImageHelper
         return $this->entity->$imageTitleField;
     }
 
+    private function _getImageType($imageType)
+    {
+        return ImageType::where('code', $imageType)->first();
+    }
+
+    public function update($file, $imageType, $fileSrcType = 'file_obj')
+    {
+        if(!$imageTypeObj = $this->_getImageType($imageType))
+            return 'Invalid image type';
+
+        $image = Image::where('image_type_id', $imageTypeObj->id)
+            ->where('imageable_type', $this->imageable_type)
+            ->where('imageable_id', $this->entity->id)
+            ->first();
+
+        if (!$image)
+            return $this->upload($file, $imageType, $fileSrcType);
+
+        // TODO:
+        // Remove old image file
+        // Create new one
+        // Update db
+    }
+
     public function upload($file, $imageType, $fileSrcType = 'file_obj')
     {
-        $imageType = ImageType::where('code', $imageType)->first();
-        if(!$imageType)
+        if(!$imageType = $this->_getImageType($imageType))
             return 'Invalid image type';
 
         $this->image = new Image;

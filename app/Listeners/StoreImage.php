@@ -30,14 +30,12 @@ class StoreImage
         $request = $event->request;
         $image_url = trim($request->input('image_url'));
         if ($request->hasFile('image') || $image_url != '') {
-            $imageHelper = new ImageHelper($event->entity, $event->imageable_type);
+            $imageHelper = new ImageHelper($event->entity);
             $imageUploadResult = $image_url != '' ?
                 $imageHelper->upload($image_url, $event->image_type, 'url') :
                 $imageHelper->upload($request->file('image'), $event->image_type);
-
                 return $imageUploadResult;
-        } else {
-            return 'No image detected in request';
         }
+        return null;
     }
 }
